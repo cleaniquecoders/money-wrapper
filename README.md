@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/cleaniquecoders/money-wrapper.svg?branch=master)](https://travis-ci.org/cleaniquecoders/money-wrapper) [![Latest Stable Version](https://poser.pugx.org/cleaniquecoders/money-wrapper/v/stable)](https://packagist.org/packages/cleaniquecoders/money-wrapper) [![Total Downloads](https://poser.pugx.org/cleaniquecoders/money-wrapper/downloads)](https://packagist.org/packages/cleaniquecoders/money-wrapper) [![License](https://poser.pugx.org/cleaniquecoders/money-wrapper/license)](https://packagist.org/packages/cleaniquecoders/money-wrapper)
+
 ## MoneyPHP Wrapper
 
 This is a wrapper for [Money](https://github.com/moneyphp/money). 
