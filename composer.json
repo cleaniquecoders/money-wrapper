@@ -1,6 +1,7 @@
 {
     "name": "cleaniquecoders/money-wrapper",
-    "description": "Built with Laravel Standalone Package Creator",
+    "description": "MoneyPHP Wrapper",
+    "keywords": ["money", "php", "wrapper", "laravel"],
     "license": "MIT",
     "authors": [
         {
