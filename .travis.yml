@@ -12,4 +12,4 @@ cache:
     - vendor
 
 script:
-  - vendor/bin/phpunit  --testdox --verbose
+  - vendor/bin/phpunit --testdox --verbose
