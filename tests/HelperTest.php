@@ -132,4 +132,85 @@ class HelperTest extends TestCase
         $usd = money()->convertFixedRate($fixedExchange, 100, 'USD')->getAmount();
         $this->assertEquals(387, $usd);
     }
+
+    /** @test */
+    public function it_can_convert_to_common_format_with_thousand_separator_from_machine_format()
+    {
+        $expected = '1,000.23';
+        $value    = 100023;
+        $given    = money()->toCommon($value);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_to_common_format_without_thousand_separator_from_machine_format()
+    {
+        $expected = '1000.23';
+        $value    = 100023;
+        $given    = money()->toCommon($value, false);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_to_common_format_from_machine_format()
+    {
+        $expected = '1,000.23';
+        $value    = 100023;
+        $given    = money()->toCommon($value);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_to_human_format_from_machine_format()
+    {
+        $expected = 'RM 1,000.23';
+        $value    = 100023;
+        $given    = money()->toHuman($value);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_to_human_format_with_thousand_separator_from_machine_format()
+    {
+        $expected = 'RM 1,000.23';
+        $value    = 100023;
+        $given    = money()->toHuman($value, true);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_to_moneyphp_from_common_format()
+    {
+        $value    = '1,000.23';
+        $expected = 100023;
+        $given    = money()->toMachine($value);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_to_moneyphp_from_human_format()
+    {
+        $value    = 'RM 1,000.23';
+        $expected = 100023;
+        $given    = money()->toMachine($value);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_convert_negative_amount_for_machine()
+    {
+        $value    = 'RM -1,000.23';
+        $expected = -100023;
+        $given    = money()->toMachine($value);
+        $this->assertEquals($expected, $given);
+    }
+
+    /** @test */
+    public function it_can_remove_thousand_separator_characters_for_machine()
+    {
+        $value    = 'RM 1,000,000.23';
+        $expected = 100000023;
+        $given    = money()->toMachine($value);
+        $this->assertEquals($expected, $given);
+    }
 }

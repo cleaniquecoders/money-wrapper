@@ -6,5 +6,4 @@ use Exception;
 
 class CurrencyNotAvaialbleException extends Exception
 {
-
 }

@@ -2,7 +2,7 @@
 
 namespace CleaniqueCoders\MoneyWrapper;
 
-/**
+/*
  * This file is part of money-wrapper
  *
  * @license MIT

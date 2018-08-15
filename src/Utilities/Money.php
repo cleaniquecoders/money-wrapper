@@ -14,32 +14,38 @@ use Money\Parser\DecimalMoneyParser;
 
 /**
  * Cast integers to MoneyPHP Instance
- * MoneyPHP only accept integer
- * @link http://moneyphp.org/en/latest/getting-started.html#accepted-integer-values
+ * MoneyPHP only accept integer.
+ *
+ * @see http://moneyphp.org/en/latest/getting-started.html#accepted-integer-values
  */
 class Money
 {
     /**
-     * Currency Configuration Used
+     * Currency Configuration Used.
+     *
      * @var array
      */
     protected $currency;
 
     /**
-     * Create Static Instance
+     * Create Static Instance.
+     *
      * @param string $country
-     * @return $this     static instance
+     *
+     * @return $this static instance
      */
     public static function make(string $country = null)
     {
         if (empty($country)) {
             $country = config('default');
         }
-        return (new static )->setCurrency($country);
+
+        return (new static() )->setCurrency($country);
     }
 
     /**
-     * Set Currency
+     * Set Currency.
+     *
      * @param string $country
      */
     public function setCurrency($country = null)
@@ -52,16 +58,18 @@ class Money
             throw new CurrencyNotAvaialbleException($country . ' currency not avaialble.');
         }
         $this->currency = $config;
+
         return $this;
     }
 
     /**
-     * Ge Current Use Currency
+     * Ge Current Use Currency.
+     *
      * @return array
      */
     public function getCurrency()
     {
-        if (!empty($this->currency)) {
+        if (! empty($this->currency)) {
             return $this->currency;
         }
 
@@ -69,7 +77,8 @@ class Money
     }
 
     /**
-     * Get Current Use Currency Symbol
+     * Get Current Use Currency Symbol.
+     *
      * @return string
      */
     public function getCurrencySymbol()
@@ -78,7 +87,8 @@ class Money
     }
 
     /**
-     * Get Current Use Currency Swift Code
+     * Get Current Use Currency Swift Code.
+     *
      * @return string
      */
     public function getCurrencySwiftCode()
@@ -87,19 +97,23 @@ class Money
     }
 
     /**
-     * Cast integer to MoneyPHP instance
-     * @param  int $amount             amount to cast in integer format
-     * @return \Money\Money        MoneyPHP Instance
+     * Cast integer to MoneyPHP instance.
+     *
+     * @param int $amount amount to cast in integer format
+     *
+     * @return \Money\Money MoneyPHP Instance
      */
     public function castMoney(int $amount): MoneyPHP
     {
-        return (new MoneyPHP($amount, new Currency($this->getCurrencySwiftCode())));
+        return new MoneyPHP($amount, new Currency($this->getCurrencySwiftCode()));
     }
 
     /**
-     * Convert integer money to human readable format
-     * @param  int    $amount Integer money representation
-     * @return string        Return readable format for human
+     * Convert integer money to human readable format.
+     *
+     * @param int $amount Integer money representation
+     *
+     * @return string Return readable format for human
      */
     public function toHuman(int $amount): string
     {
@@ -108,9 +122,11 @@ class Money
 
     /**
      * Convert integer money to common view for the system
-     * Instead of 700000, to 7000
-     * @param  int    $amount Integer money representation
-     * @return string        Return readable format for human
+     * Instead of 700000, to 7000.
+     *
+     * @param int $amount Integer money representation
+     *
+     * @return string Return readable format for human
      */
     public function toCommon(int $amount, bool $format = true): string
     {
@@ -126,8 +142,10 @@ class Money
      * Return to Database Format.
      * This method intended to be use before save to the database
      * and this need to be call manually.
-     * @param  string    $amount
-     * @param  string $swift_code
+     *
+     * @param string $amount
+     * @param string $swift_code
+     *
      * @return int
      */
     public function toMachine(string $amount, string $swift_code = ''): int
@@ -143,11 +161,14 @@ class Money
     }
 
     /**
-     * Convert Money with given fixed rate
-     * @link http://moneyphp.org/en/latest/features/currency-conversion.html#fixed-exchange
-     * @param  array  $fixedExchange ['EUR' => ['USD' => 1.25]]
-     * @param  int    $amount
-     * @param  string $swift_code
+     * Convert Money with given fixed rate.
+     *
+     * @see http://moneyphp.org/en/latest/features/currency-conversion.html#fixed-exchange
+     *
+     * @param array  $fixedExchange ['EUR' => ['USD' => 1.25]]
+     * @param int    $amount
+     * @param string $swift_code
+     *
      * @return \Money\Money
      */
     public function convertFixedRate(array $fixedExchange, int $amount, string $swift_code): MoneyPHP
