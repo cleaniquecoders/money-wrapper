@@ -112,7 +112,7 @@ class Money
      * @param  int    $amount Integer money representation
      * @return string        Return readable format for human
      */
-    public function toCommon(int $amount, bool $format = false): string
+    public function toCommon(int $amount, bool $format = true): string
     {
         $money          = $this->castMoney($amount, $this->getCurrencySwiftCode());
         $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
@@ -130,14 +130,16 @@ class Money
      * @param  string $swift_code
      * @return int
      */
-    public function toMachine(string $amount): int
+    public function toMachine(string $amount, string $swift_code = ''): int
     {
-        return (new DecimalMoneyParser(new ISOCurrencies()))
-            ->parse(
-                $amount,
-                $this->getCurrencySwiftCode()
-            )
-            ->getAmount();
+        $swift_code = empty($swift_code) ? config('currency.default_swift_code') : $swift_code;
+
+        return (new DecimalMoneyParser(
+                new ISOCurrencies()
+            ))->parse(
+                preg_replace('/[^0-9.-]/im', '', $amount),
+                (new Currency($swift_code))
+            )->getAmount();
     }
 
     /**
