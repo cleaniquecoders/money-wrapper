@@ -5,6 +5,24 @@ namespace CleaniqueCoders\MoneyWrapper\Tests;
 class HelperTest extends TestCase
 {
     /** @test */
+    public function it_has_package_service_provider()
+    {
+        $this->assertTrue(class_exists(\CleaniqueCoders\MoneyWrapper\MoneyWrapperServiceProvider::class));
+    }
+
+    /** @test */
+    public function it_can_publish_config_file()
+    {
+        $this->artisan('vendor:publish', ['--tag' => 'money-wrapper-config']);
+
+        $this->assertFileExists(config_path('currency.php'));
+
+        if (file_exists(config_path('currency.php'))) {
+            unlink(config_path('currency.php'));
+        }
+    }
+
+    /** @test */
     public function it_has_money_helper()
     {
         $this->assertTrue(function_exists('money'));
@@ -212,5 +230,19 @@ class HelperTest extends TestCase
         $expected = 100000023;
         $given    = money()->toMachine($value);
         $this->assertEquals($expected, $given);
+    }
+
+    /**
+     * Load Package Service Provider.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     *
+     * @return array List of Service Provider
+     */
+    protected function getPackageProviders($app)
+    {
+        return [
+            \CleaniqueCoders\MoneyWrapper\MoneyWrapperServiceProvider::class,
+        ];
     }
 }
