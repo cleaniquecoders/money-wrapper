@@ -11,6 +11,15 @@ class MoneyWrapperServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /*
+         * Configuration
+         */
+        $this->publishes([
+            __DIR__ . '/../config/currency.php' => config_path('currency.php'),
+        ], 'money-wrapper-config');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/currency.php', 'currency'
+        );
     }
 
     /**
@@ -18,8 +27,5 @@ class MoneyWrapperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $config = __DIR__ . '/../config/currency.php';
-        $this->mergeConfigFrom($config, 'currency');
-        $this->publishes([__DIR__ . '/../config/currency.php' => config_path('currency.php')], 'money-wrapper-config');
     }
 }
