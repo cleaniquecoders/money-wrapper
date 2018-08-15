@@ -31,6 +31,13 @@
         "phpunit/phpunit": "^6.5|^7.0",
         "orchestra/testbench": "3.5.*|3.6.*"
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CleaniqueCoders\\MoneyWrapper\\MoneyWrapperServiceProvider"
+            ]
+        }
+    },
     "config": {
         "sort-packages": true
     },
